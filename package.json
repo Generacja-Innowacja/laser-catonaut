@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "license": "proprietary",
+  "main": "index.js",
+  "author": "generacja-innowacja",
   "scripts": {
     "dev": "vite",
     "build": "npx react-router build",
@@ -14,6 +16,10 @@
     "lint": "npx @biomejs/biome lint",
     "lint:fix": "npx @biomejs/biome check --write"
   },
+  "precommit" : [
+    "yarn test:coverage",
+    "yarn lint:fix"
+  ],
   "dependencies": {
     "@react-router/fs-routes": "^7.9.6",
     "@react-router/node": "^7.9.6",
@@ -41,12 +47,14 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^5.1.0",
+    "@vitest/coverage-v8": "^4.0.10",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "eslint-plugin-unicorn": "^62.0.0",
     "globals": "^16.5.0",
     "jsdom": "^27.2.0",
+    "precommit": "^1.2.2",
     "react-test-renderer": "^19.2.0",
     "typescript": "5.9.2",
     "typescript-eslint": "^8.46.3",
@@ -57,8 +65,5 @@
   "engines": {
     "node": ">=24",
     "yarn": ">=1.22"
-  },
-  "main": "index.js",
-  "repository": "https://github.com/Generacja-Innowacja/vite-project-boilerplate.git",
-  "author": "Adrian Orłów <adrian@orlow.me>"
+  }
 }

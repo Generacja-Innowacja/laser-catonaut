@@ -12,7 +12,8 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "biome:init": "yarn exec biome init"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
@@ -24,6 +25,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.6",
     "@eslint/js": "^9.39.1",
     "@playwright/test": "^1.56.1",
     "@types/node": "^24.10.0",
@@ -42,5 +44,8 @@
   "engines": {
     "node": ">=24",
     "yarn": ">=1.22"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Generacja-Innowacja/vite-project-boilerplate.git",
+  "author": "Adrian Orłów <adrian@orlow.me>"
 }

@@ -6,8 +6,7 @@
 	"license": "proprietary",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc -b && vite build",
-		"preview": "vite preview",
+		"build": "npx react-router build",
 		"test": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"e2e": "playwright test",
@@ -16,11 +15,16 @@
 		"lint:fix": "npx @biomejs/biome check --write"
 	},
 	"dependencies": {
+		"@react-router/fs-routes": "^7.9.6",
+		"@react-router/node": "^7.9.6",
+		"@react-router/serve": "^7.9.6",
 		"@tailwindcss/vite": "^4.1.17",
 		"axios": "^1.13.2",
+		"isbot": "^5.1.32",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-router": "^7.9.6",
+		"tailwind-merge": "^3.4.0",
 		"tailwindcss": "^4.1.17",
 		"zod": "^4.1.12",
 		"zustand": "^5.0.8"
@@ -29,6 +33,10 @@
 		"@biomejs/biome": "2.3.6",
 		"@eslint/js": "^9.39.1",
 		"@playwright/test": "^1.56.1",
+		"@react-router/dev": "^7.9.6",
+		"@testing-library/dom": "^10.4.1",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.0",
 		"@types/node": "^24.10.0",
 		"@types/react": "^19.2.2",
 		"@types/react-dom": "^19.2.2",
@@ -38,10 +46,13 @@
 		"eslint-plugin-react-refresh": "^0.4.24",
 		"eslint-plugin-unicorn": "^62.0.0",
 		"globals": "^16.5.0",
+		"jsdom": "^27.2.0",
+		"react-test-renderer": "^19.2.0",
 		"typescript": "5.9.2",
 		"typescript-eslint": "^8.46.3",
 		"vite": "^7.2.2",
-		"vitest": "^4.0.10"
+		"vitest": "^4.0.10",
+		"vitest-browser-react": "^2.0.2"
 	},
 	"engines": {
 		"node": ">=24",

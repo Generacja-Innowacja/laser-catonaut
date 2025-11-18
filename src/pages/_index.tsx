@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import Button from "../components/shared/Button/Button";
 import { addTwoNumbers } from "../utils/number/addTwoNumbers";
 
-const Component = () => {
+const Index = () => {
 	const navigate = useNavigate();
 	const sum = addTwoNumbers(2, 2);
 
@@ -18,4 +18,4 @@ const Component = () => {
 	);
 };
 
-export default Component;
+export default Index;

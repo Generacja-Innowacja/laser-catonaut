@@ -1,7 +1,7 @@
 import reactLogo from "../assets/vectors/react.svg";
 import Counter from "../components/another-domain/Counter/Counter";
 
-function AnotherPage() {
+const AnotherPage = () => {
 	return (
 		<>
 			<div>
@@ -19,6 +19,6 @@ function AnotherPage() {
 			<p>Click on the Vite and React logos to learn more</p>
 		</>
 	);
-}
+};
 
 export default AnotherPage;

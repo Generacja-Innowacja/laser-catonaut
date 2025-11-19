@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npx react-router build",
+    "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "e2e": "playwright test",

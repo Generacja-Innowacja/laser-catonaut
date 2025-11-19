@@ -24,6 +24,7 @@ Project's main dependencies are listed below.
 | Zod          | ^4.x    |
 | Axios        | ^1.x    |
 | Zustand      | ^5.x    |
+| Storybook    | ^10.x   |
 
 ### Package descriptions
 
@@ -35,6 +36,7 @@ Project's main dependencies are listed below.
 - **Vitest** - Fast unit testing framework powered by Vite
 - **Playwright** - End-to-end testing framework for reliable cross-browser testing
 - **Zustand** - Lightweight state management library for React applications
+- **Storybook** - UI development environment and playground for building, previewing, and testing isolated components interactively
 
 ## Infrastructure
 
@@ -94,6 +96,8 @@ yarn e2e              # Run end-to-end tests with Playwright
 yarn e2e:ui           # Run Playwright tests in UI mode
 yarn lint             # Run Biome linter
 yarn lint:fix         # Fix linting issues automatically
+yarn storybook        # Run Storybook in development mode
+yarn storybook:build  # Build Storybook for production
 ```
 
 ## Build
@@ -135,6 +139,22 @@ yarn lint:fix          # Automatically fix linting and formatting issues
 
 The project is configured with custom linting rules in `biome.json`, including complexity checks, style rules, and correctness validations for TypeScript files.
 
+## Visual testing
+
+This boilerplate uses Storybook for visual testing and component development. Storybook provides an isolated environment to develop, test, and document UI components independently.
+
+- **Component Development**: Build and test components in isolation
+- **Visual Testing**: Preview components with different props and states
+- **Documentation**: Auto-generate component documentation from stories
+- **Addons**: Includes accessibility, docs, and Vitest integration addons
+
+Run Storybook with:
+
+```bash
+yarn storybook        # Start Storybook development server (http://localhost:6006)
+yarn storybook:build  # Build Storybook for production deployment
+```
+
 ## Resources
 
 - [Vite Documentation](https://vite.dev/) - Vite build tool documentation
@@ -145,3 +165,4 @@ The project is configured with custom linting rules in `biome.json`, including c
 - [Vitest Documentation](https://vitest.dev/) - Vitest testing framework documentation
 - [Playwright Documentation](https://playwright.dev/) - Playwright E2E testing documentation
 - [BiomeJS Documentation](https://biomejs.dev/) - BiomeJS linter and formatter documentation
+- [Storybook Documentation](https://storybook.js.org/) - Storybook component development and visual testing documentation

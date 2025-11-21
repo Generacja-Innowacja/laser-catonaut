@@ -1,6 +1,5 @@
+import { Button } from "@gi/athena";
 import { useState } from "react";
-
-import Button from "@/components/shared/Button/Button";
 
 const Counter = () => {
   const [count, setCount] = useState(0);

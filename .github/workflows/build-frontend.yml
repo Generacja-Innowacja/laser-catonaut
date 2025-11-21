@@ -30,7 +30,7 @@ jobs:
           cache-dependency-path: yarn.lock
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --network-concurrency 1
 
       - name: Build
         run: yarn build
@@ -70,7 +70,7 @@ jobs:
           yarn preview &
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --network-concurrency 1
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps --only-shell
@@ -104,7 +104,7 @@ jobs:
           cache-dependency-path: yarn.lock
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --network-concurrency 1
 
       - name: Build
         run: yarn build
@@ -134,7 +134,7 @@ jobs:
           cache-dependency-path: yarn.lock
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --network-concurrency 1
 
       - name: Run lint
         run: yarn run lint

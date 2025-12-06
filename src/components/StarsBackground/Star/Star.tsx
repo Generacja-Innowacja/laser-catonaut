@@ -1,6 +1,6 @@
-import { getRandomNumberInRange } from "@/utils/number/getRandomNumberInRange";
 import { type CSSProperties, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { getRandomNumberInRange } from "@/utils/number/getRandomNumberInRange";
 import { STAR_BASE_SIZE } from "./Star.constants";
 import { getRandomStar } from "./Star.utils";
 

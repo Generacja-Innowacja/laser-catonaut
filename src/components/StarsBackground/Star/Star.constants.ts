@@ -1,7 +1,7 @@
-import star1 from '@/assets/vectors/stars/star-1.svg';
-import star2 from '@/assets/vectors/stars/star-2.svg';
-import star3 from '@/assets/vectors/stars/star-3.svg';
-import star4 from '@/assets/vectors/stars/star-4.svg';
+import star1 from "@/assets/vectors/stars/star-1.svg";
+import star2 from "@/assets/vectors/stars/star-2.svg";
+import star3 from "@/assets/vectors/stars/star-3.svg";
+import star4 from "@/assets/vectors/stars/star-4.svg";
 
 export const STARS = [
   { src: star1, size: 1 },

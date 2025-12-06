@@ -1,6 +1,6 @@
-import { getNumberRoundedUpTo } from '@/utils/number/getNumberRoundedUpTo';
-import { getRandomNumberInRange } from '@/utils/number/getRandomNumberInRange';
-import { NUMBER_OF_STARS, STARS_GAP } from './StarsBackground.constants';
+import { getNumberRoundedUpTo } from "@/utils/number/getNumberRoundedUpTo";
+import { getRandomNumberInRange } from "@/utils/number/getRandomNumberInRange";
+import { NUMBER_OF_STARS, STARS_GAP } from "./StarsBackground.constants";
 
 export const getStarPosition = (): { top: number; left: number } => {
   const top = getRandomNumberInRange(0, 100);

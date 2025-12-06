@@ -1,8 +1,11 @@
+import clickSound from "@/assets/sounds/blip.wav";
 import { PLAYERS } from "@/constants/common";
 
 interface Props {
   onPlayerSelect(id: string): void;
 }
+
+const clickAudio = new Audio(clickSound);
 
 const PlayerSelector = ({ onPlayerSelect }: Props) => {
   return (
@@ -14,7 +17,10 @@ const PlayerSelector = ({ onPlayerSelect }: Props) => {
             key={id}
             type="button"
             className="nes-btn h-full w-full"
-            onClick={() => onPlayerSelect(id)}
+            onClick={() => {
+              clickAudio.play();
+              onPlayerSelect(id);
+            }}
           >
             <div className="flex gap-8 items-center justify-center">
               <img

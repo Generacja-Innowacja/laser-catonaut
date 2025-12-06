@@ -1,3 +1,5 @@
+import successSound from "@/assets/sounds/success.wav";
+import { useEffect } from "react";
 import type { GameOver } from "../utils/game";
 
 interface Props {
@@ -6,11 +8,27 @@ interface Props {
   onNextLevel(): void;
 }
 
+const successAudio = new Audio(successSound);
+const gaveOverAudio = new Audio(successSound);
+
 const GameOver = ({
   data,
   onRestart,
   onNextLevel,
 }: Props): React.ReactElement => {
+  console.log({ successSound });
+
+  useEffect(() => {
+    console.log("should play sound");
+
+    if (data.reason === "timeUp") {
+      successAudio.play();
+      return;
+    }
+
+    gaveOverAudio.play();
+  }, [data.reason]);
+
   const Stats = data.stats && (
     <div className="nes-text is-disabled opacity-50">
       Planet health: {data.stats.planetHealth} | Hits: {data.stats.hits} |

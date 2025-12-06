@@ -1,6 +1,6 @@
-import { ENEMY_ANGLE_OFFSET } from "../constants";
-import type { DEFAULT_DATA } from "../gameData";
-import { getRandomEnemy } from "./getRandomEnemy";
+import { ENEMY_ANGLE_OFFSET } from '../../constants';
+import type { DEFAULT_DATA } from '../../gameData';
+import { getRandomEnemy } from './getRandomEnemy';
 
 export function spawnEnemy(data: typeof DEFAULT_DATA, scene: Phaser.Scene) {
   const enemy = getRandomEnemy();
@@ -21,7 +21,7 @@ export function spawnEnemy(data: typeof DEFAULT_DATA, scene: Phaser.Scene) {
   // kierunek i prędkość w stronę planety
   const dir = new Phaser.Math.Vector2(
     data.planet.x - spawnX,
-    data.planet.y - spawnY,
+    data.planet.y - spawnY
   ).normalize();
 
   const vx = dir.x * data.enemySpeed;
@@ -32,7 +32,7 @@ export function spawnEnemy(data: typeof DEFAULT_DATA, scene: Phaser.Scene) {
     data.planet.x,
     data.planet.y,
     spawnX,
-    spawnY + sprite.height / 2,
+    spawnY + sprite.height / 2
   );
   sprite.rotation = angleToPlanet + ENEMY_ANGLE_OFFSET;
 

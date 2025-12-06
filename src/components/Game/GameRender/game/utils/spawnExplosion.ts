@@ -1,21 +1,21 @@
-import * as Phaser from 'phaser';
+import * as Phaser from "phaser";
 import {
   SOUND_EXPLOSION,
   SOUND_LIGHT_EXPLOSION,
   TEXTURE_EXPLOSION,
-} from '../constants';
+} from "../constants";
 
 export function spawnExplosion(
   scene: Phaser.Scene,
   x: number,
   y: number,
-  type: 'light' | 'hard'
+  type: "light" | "hard",
 ) {
   const explosion = scene.add.image(x, y, TEXTURE_EXPLOSION);
   explosion.setOrigin(0.5, 0.5);
   explosion.setScale(0.25);
 
-  scene.sound.play(type === 'light' ? SOUND_LIGHT_EXPLOSION : SOUND_EXPLOSION, {
+  scene.sound.play(type === "light" ? SOUND_LIGHT_EXPLOSION : SOUND_EXPLOSION, {
     volume: 0.7,
   });
 

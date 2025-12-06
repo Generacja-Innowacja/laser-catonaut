@@ -13,6 +13,7 @@ export interface Level {
   id: string;
   name: string;
   duration: number;
+  hearts: number;
   difficulty: number;
   planetSrc: string;
   soundSrc: string;

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import soundLobby from "@/assets/sounds/lobby.mp3";
+import { LEVELS } from "@/constants/common";
+import { useEffect, useRef, useState } from "react";
 import GameRender from "./GameRender/GameRender";
 import PlayerSelector from "./PlayerSelector/PlayerSelector";
 
@@ -11,6 +12,15 @@ const Game = (): React.ReactElement => {
   const handleRestart = () => {
     setPlayerId(null);
     setLevelIndex(0);
+  };
+
+  const handleNextLevel = () => {
+    const isHasNextLevel = levelIndex + 1 <= LEVELS.length;
+    if (!isHasNextLevel) {
+      return;
+    }
+
+    setLevelIndex((currentLevel) => currentLevel + 1);
   };
 
   useEffect(() => {
@@ -33,6 +43,7 @@ const Game = (): React.ReactElement => {
             playerId={playerId}
             levelIndex={levelIndex}
             onRestart={handleRestart}
+            onNextLevel={handleNextLevel}
           />
         )}
       </div>

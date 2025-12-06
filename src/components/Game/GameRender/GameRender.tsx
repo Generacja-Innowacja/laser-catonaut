@@ -1,6 +1,6 @@
+import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import * as Phaser from "phaser";
 import { useEffect, useRef, useState } from "react";
-import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import GameOverView from "./GameOver/GameOver";
 import { type GameOver as GameOverType, getConfig } from "./utils/game";
 
@@ -8,12 +8,14 @@ interface Props {
   playerId: string;
   levelIndex: number;
   onRestart(): void;
+  onNextLevel(): void;
 }
 
 const GameRender = ({
   playerId,
   levelIndex,
   onRestart,
+  onNextLevel,
 }: Props): React.ReactElement => {
   const game = useRef<Phaser.Game | undefined>(undefined);
   const level = LEVELS[levelIndex];
@@ -26,6 +28,11 @@ const GameRender = ({
     game!.current!.destroy(true);
   };
 
+  const handleNextLevel = () => {
+    setGameOver(undefined);
+    onNextLevel();
+  };
+
   const startGame = () => {
     const currentPlayer =
       PLAYERS.find((player) => player.id === playerId) || DEFAULT_PLAYER;
@@ -33,6 +40,8 @@ const GameRender = ({
     const gameConfig = getConfig({
       planetImage: level.planetSrc,
       duration: level.duration,
+      hearts: level.hearts,
+      difficulty: level.difficulty,
       playerImage: currentPlayer.imageSrc,
       onGameOver: handleGameOver,
     });
@@ -42,7 +51,7 @@ const GameRender = ({
       gameContent?.querySelector("canvas"),
     );
 
-    if (!game.current && !isGameContentHasCanvas) {
+    if (!isGameContentHasCanvas) {
       game.current = new Phaser.Game(gameConfig);
     }
   };
@@ -62,7 +71,7 @@ const GameRender = ({
         <div className="absolute top-0 left-0 h-full w-full flex flex-col gap-4 justify-center items-center z-10 bg-stars-night text-center">
           <GameOverView
             data={gameOver}
-            onNextLevel={() => {}}
+            onNextLevel={handleNextLevel}
             onRestart={onRestart}
           />
         </div>

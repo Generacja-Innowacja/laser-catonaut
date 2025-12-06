@@ -1,9 +1,9 @@
+import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import * as Phaser from "phaser";
 import { useEffect, useRef, useState } from "react";
-import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import GameOverView from "./GameOver/GameOver";
-import { getConfig } from "./utils/game";
-import type { GameOver } from "./utils/types";
+import { getConfig } from "./game/game";
+import type { GameOver } from "./game/types";
 
 interface Props {
   playerId: string;

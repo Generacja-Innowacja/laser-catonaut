@@ -1,10 +1,4 @@
-import * as Phaser from "phaser";
-import explosionImage from "@/assets/images/explosion.gif";
-import heartImage from "@/assets/images/heart.png";
-import boomSound from "@/assets/sounds/boom.wav";
-import boomLightSound from "@/assets/sounds/boom-light.wav";
-import shootSound from "@/assets/sounds/shoot.wav";
-import { ENEMIES } from "@/constants/common";
+import * as Phaser from 'phaser';
 import {
   BASE_ENEMY_SPAWN_INTERVAL,
   BASE_ENEMY_SPEED,
@@ -21,9 +15,10 @@ import {
   TEXTURE_HEART,
   TEXTURE_PLANET,
   TEXTURE_PLAYER,
-} from "./constants";
-import { getRandomEnemy } from "./getRandomEnemy";
-import type { Enemy, GameConfig, Laser } from "./types";
+} from './constants';
+import { getPreload } from './gamePreload';
+import { getRandomEnemy } from './getRandomEnemy';
+import type { Enemy, GameConfig, Laser } from './types';
 
 const enemies: Enemy[] = [];
 const lasers: Laser[] = [];
@@ -57,23 +52,7 @@ let hudText: Phaser.GameObjects.Text;
 let hearts: Phaser.GameObjects.Image[] = [];
 
 let isGameOver = false;
-let onGameOverCallback: GameConfig["onGameOver"];
-
-const getPreload = ({ planetImage, playerImage }: GameConfig) =>
-  function (this: Phaser.Scene) {
-    this.load.image(TEXTURE_PLANET, planetImage);
-    this.load.image(TEXTURE_PLAYER, playerImage);
-    this.load.image(TEXTURE_HEART, heartImage);
-    this.load.image(TEXTURE_EXPLOSION, explosionImage);
-
-    this.load.audio(SOUND_LASER, shootSound);
-    this.load.audio(SOUND_LIGHT_EXPLOSION, boomLightSound);
-    this.load.audio(SOUND_EXPLOSION, boomSound);
-
-    for (const enemy of ENEMIES) {
-      this.load.image(enemy.id, enemy.imageSrc);
-    }
-  };
+let onGameOverCallback: GameConfig['onGameOver'];
 
 export const getCreate = (config: GameConfig) =>
   function (this: Phaser.Scene) {
@@ -120,7 +99,7 @@ export const getCreate = (config: GameConfig) =>
     // Input – arrows + WASD + SPACE
     cursors = this.input.keyboard!.createCursorKeys();
     spaceKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE,
+      Phaser.Input.Keyboard.KeyCodes.SPACE
     );
 
     const wasd = this.input.keyboard!.addKeys({
@@ -128,7 +107,7 @@ export const getCreate = (config: GameConfig) =>
       A: Phaser.Input.Keyboard.KeyCodes.A,
       S: Phaser.Input.Keyboard.KeyCodes.S,
       D: Phaser.Input.Keyboard.KeyCodes.D,
-    }) as Record<"W" | "A" | "S" | "D", Phaser.Input.Keyboard.Key>;
+    }) as Record<'W' | 'A' | 'S' | 'D', Phaser.Input.Keyboard.Key>;
 
     keyW = wasd.W;
     keyA = wasd.A;
@@ -136,7 +115,7 @@ export const getCreate = (config: GameConfig) =>
     keyD = wasd.D;
 
     // Mouse – lewy przycisk strzela w punkt kliknięcia
-    this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
+    this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       if (pointer.leftButtonDown()) {
         shootLaser(this, this.time.now, {
           x: pointer.worldX,
@@ -146,10 +125,10 @@ export const getCreate = (config: GameConfig) =>
     });
 
     // HUD text
-    hudText = this.add.text(16, 16, "", {
-      fontFamily: "monospace",
-      fontSize: "14px",
-      color: "#ffffff",
+    hudText = this.add.text(16, 16, '', {
+      fontFamily: 'monospace',
+      fontSize: '14px',
+      color: '#ffffff',
     });
     hudText.setScrollFactor(0);
 
@@ -180,7 +159,7 @@ export const getCreate = (config: GameConfig) =>
         if (isGameOver) return;
         timeLeftMs = 0;
         updateHud();
-        triggerGameOver(this, "timeUp");
+        triggerGameOver(this, 'timeUp');
       },
     });
   };
@@ -202,14 +181,14 @@ function layoutHearts(width: number) {
 
 // kolor czasu: zielony -> czerwony
 function getTimeColor(): string {
-  if (roundDuration <= 0) return "#ff0000";
+  if (roundDuration <= 0) return '#ff0000';
   const t = Phaser.Math.Clamp(timeLeftMs / roundDuration, 0, 1); // 1 = full time (green), 0 = no time (red)
 
   const r = Math.round((1 - t) * 255); // rośnie do czerwieni
   const g = Math.round(t * 255); // maleje z zieleni
-  const rr = r.toString(16).padStart(2, "0");
-  const gg = g.toString(16).padStart(2, "0");
-  const bb = "00";
+  const rr = r.toString(16).padStart(2, '0');
+  const gg = g.toString(16).padStart(2, '0');
+  const bb = '00';
 
   return `#${rr}${gg}${bb}`;
 }
@@ -221,7 +200,7 @@ function updateHud() {
   const timeText = secondsLeft.toFixed(1);
 
   hudText.setText(
-    `Time: ${timeText}s  |  Hits: ${hits}   Misses: ${misses}   Planet HP: ${planetHealth}`,
+    `Time: ${timeText}s  |  Hits: ${hits}   Misses: ${misses}   Planet HP: ${planetHealth}`
   );
   hudText.setColor(getTimeColor());
 }
@@ -234,7 +213,7 @@ function updateHearts() {
 
 function triggerGameOver(
   scene: Phaser.Scene,
-  reason: "planetDestroyed" | "playerHit" | "timeUp",
+  reason: 'planetDestroyed' | 'playerHit' | 'timeUp'
 ) {
   if (isGameOver) return;
   isGameOver = true;
@@ -253,7 +232,7 @@ function fadeOutEnemy(
   scene: Phaser.Scene,
   enemy: Enemy,
   index: number,
-  duration: number,
+  duration: number
 ) {
   enemies.splice(index, 1);
   scene.tweens.add({
@@ -285,7 +264,7 @@ function spawnEnemy(scene: Phaser.Scene) {
   // kierunek i prędkość w stronę planety
   const dir = new Phaser.Math.Vector2(
     planet.x - spawnX,
-    planet.y - spawnY,
+    planet.y - spawnY
   ).normalize();
 
   const vx = dir.x * enemySpeed;
@@ -296,7 +275,7 @@ function spawnEnemy(scene: Phaser.Scene) {
     planet.x,
     planet.y,
     spawnX,
-    spawnY + sprite.height / 2,
+    spawnY + sprite.height / 2
   );
   sprite.rotation = angleToPlanet + ENEMY_ANGLE_OFFSET;
 
@@ -315,13 +294,13 @@ function spawnExplosion(
   scene: Phaser.Scene,
   x: number,
   y: number,
-  type: "light" | "hard",
+  type: 'light' | 'hard'
 ) {
   const explosion = scene.add.image(x, y, TEXTURE_EXPLOSION);
   explosion.setOrigin(0.5, 0.5);
   explosion.setScale(0.25);
 
-  scene.sound.play(type === "light" ? SOUND_LIGHT_EXPLOSION : SOUND_EXPLOSION, {
+  scene.sound.play(type === 'light' ? SOUND_LIGHT_EXPLOSION : SOUND_EXPLOSION, {
     volume: 0.7,
   });
 
@@ -344,7 +323,7 @@ function spawnExplosion(
 function shootLaser(
   scene: Phaser.Scene,
   time: number,
-  target?: { x: number; y: number },
+  target?: { x: number; y: number }
 ) {
   if (!player) return;
   if (isGameOver) return;
@@ -372,7 +351,7 @@ function shootLaser(
     player.y,
     64,
     4,
-    0x66_ff_ff,
+    0x66_ff_ff
   );
   laserSprite.setOrigin(0, 0);
   laserSprite.rotation = Phaser.Math.Angle.Between(0, 0, dir.x, dir.y);
@@ -396,7 +375,7 @@ function shootLaser(
     scaleY: 0.96,
     duration: 80,
     yoyo: true,
-    ease: "Quad.easeOut",
+    ease: 'Quad.easeOut',
   });
 }
 
@@ -435,7 +414,7 @@ const getUpdate = (_config: GameConfig) =>
     // 2) Gravity towards planet center (keeps the cat “orbiting”)
     const toPlanet = new Phaser.Math.Vector2(
       planet.x - player.x,
-      planet.y - player.y,
+      planet.y - player.y
     );
 
     const distanceToPlanet = toPlanet.length();
@@ -451,7 +430,7 @@ const getUpdate = (_config: GameConfig) =>
     const minDistance = planetRadius + playerRadius * 3;
     const fromPlanet = new Phaser.Math.Vector2(
       player.x - planet.x,
-      player.y - planet.y,
+      player.y - planet.y
     );
     const newDistance = fromPlanet.length();
 
@@ -488,7 +467,7 @@ const getUpdate = (_config: GameConfig) =>
         enemy.sprite.x,
         enemy.sprite.y,
         player.x,
-        player.y,
+        player.y
       );
       const playerHitRadius =
         enemy.sprite.displayWidth / 2 + playerRadius * 0.6;
@@ -496,7 +475,7 @@ const getUpdate = (_config: GameConfig) =>
       if (distToPlayer < playerHitRadius) {
         this.cameras.main.shake(250, 0.02);
         fadeOutEnemy(this, enemy, i, ENEMY_FADE_FAST_DURATION);
-        triggerGameOver(this, "playerHit");
+        triggerGameOver(this, 'playerHit');
         break;
       }
 
@@ -505,7 +484,7 @@ const getUpdate = (_config: GameConfig) =>
         enemy.sprite.x,
         enemy.sprite.y,
         planet.x,
-        planet.y,
+        planet.y
       );
 
       if (distToPlanet < planetRadius) {
@@ -514,13 +493,13 @@ const getUpdate = (_config: GameConfig) =>
         updateHearts();
 
         this.cameras.main.shake(200, 0.01);
-        spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, "hard");
+        spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, 'hard');
 
         // szybki fade-out przy uderzeniu w planetę
         fadeOutEnemy(this, enemy, i, ENEMY_FADE_FAST_DURATION);
 
         if (planetHealth <= 0) {
-          triggerGameOver(this, "planetDestroyed");
+          triggerGameOver(this, 'planetDestroyed');
         }
       }
     }
@@ -536,7 +515,7 @@ const getUpdate = (_config: GameConfig) =>
         laser.sprite.x,
         laser.sprite.y,
         planet.x,
-        planet.y,
+        planet.y
       );
       if (distToPlanetForLaser < planetRadius) {
         laser.sprite.destroy();
@@ -569,7 +548,7 @@ const getUpdate = (_config: GameConfig) =>
           enemy.sprite.x,
           enemy.sprite.y,
           laser.sprite.x,
-          laser.sprite.y,
+          laser.sprite.y
         );
 
         const hitRadius =
@@ -580,7 +559,7 @@ const getUpdate = (_config: GameConfig) =>
           hits += 1;
           updateHud();
 
-          spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, "light");
+          spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, 'light');
           fadeOutEnemy(this, enemy, e, ENEMY_FADE_DURATION);
 
           // Laser znika natychmiast
@@ -597,9 +576,9 @@ const getUpdate = (_config: GameConfig) =>
   };
 
 export const getConfig = (
-  config: GameConfig,
+  config: GameConfig
 ): Phaser.Types.Core.GameConfig => ({
-  parent: "game-content",
+  parent: 'game-content',
   type: Phaser.CANVAS, // force Canvas renderer
   width: 792,
   height: 592,

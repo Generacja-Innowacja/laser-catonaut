@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import gameOverSound from "@/assets/sounds/game-over.wav";
 import successSound from "@/assets/sounds/success.wav";
 import { LEVELS } from "@/constants/common";
-import type { GameOver } from "../utils/game";
+import { useEffect } from "react";
+import type { GameOver } from "../game/game";
 
 interface Props {
   data: GameOver;

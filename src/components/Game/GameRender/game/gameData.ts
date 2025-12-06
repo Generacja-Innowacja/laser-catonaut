@@ -3,8 +3,8 @@ import {
   BASE_ENEMY_SPEED,
   BASE_PLANET_HEALTH,
   BASE_ROUND_DURATION,
-} from "./constants";
-import type { Enemy, GameConfig, Laser } from "./types";
+} from './constants';
+import type { Enemy, GameConfig, Laser } from './types';
 
 export const DEFAULT_DATA = {
   enemies: [] as Enemy[],
@@ -16,7 +16,6 @@ export const DEFAULT_DATA = {
   cursors: null as Phaser.Types.Input.Keyboard.CursorKeys | null,
   spaceKey: null as Phaser.Input.Keyboard.Key | null,
 
-  // WASD
   keyW: null as Phaser.Input.Keyboard.Key | null,
   keyA: null as Phaser.Input.Keyboard.Key | null,
   keyS: null as Phaser.Input.Keyboard.Key | null,
@@ -24,7 +23,7 @@ export const DEFAULT_DATA = {
 
   lastShotTime: 0,
   lastEnemySpawnTime: 0,
-  enemySpawnInterval: BASE_ENEMY_SPAWN_INTERVAL, // ms
+  enemySpawnInterval: BASE_ENEMY_SPAWN_INTERVAL,
   planetHealth: BASE_PLANET_HEALTH,
   enemySpeed: BASE_ENEMY_SPEED,
   roundDuration: BASE_ROUND_DURATION,
@@ -41,5 +40,5 @@ export const DEFAULT_DATA = {
   hearts: [] as Phaser.GameObjects.Image[],
 
   isGameOver: false,
-  onGameOverCallback: undefined as GameConfig["onGameOver"] | undefined,
+  onGameOverCallback: undefined as GameConfig['onGameOver'] | undefined,
 };

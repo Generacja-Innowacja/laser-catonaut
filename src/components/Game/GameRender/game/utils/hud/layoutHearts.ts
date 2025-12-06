@@ -1,6 +1,8 @@
-import { DEFAULT_DATA } from "../../gameData";
+import { DEFAULT_DATA } from '../../gameData';
 export function layoutHearts(data: typeof DEFAULT_DATA, width: number) {
-  if (data.hearts.length === 0) return;
+  if (data.hearts.length === 0) {
+    return;
+  }
 
   const spacing = 8;
   const hw = data.hearts[0].displayWidth;

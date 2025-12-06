@@ -1,10 +1,12 @@
-import { useEffect } from "react";
 import gameOverSound from "@/assets/sounds/game-over.wav";
 import successSound from "@/assets/sounds/success.wav";
+import { LEVELS } from "@/constants/common";
+import { useEffect } from "react";
 import type { GameOver } from "../utils/game";
 
 interface Props {
   data: GameOver;
+  isLastLevel: boolean;
   onRestart(): void;
   onNextLevel(): void;
 }
@@ -14,6 +16,7 @@ const gaveOverAudio = new Audio(gameOverSound);
 
 const GameOver = ({
   data,
+  isLastLevel,
   onRestart,
   onNextLevel,
 }: Props): React.ReactElement => {
@@ -35,6 +38,22 @@ const GameOver = ({
       {Math.round((data.stats.hits / data.stats.shotsFired) * 100) || 0}%
     </div>
   );
+
+  if (data.reason === "timeUp" && isLastLevel) {
+    return (
+      <>
+        <i className="nes-icon trophy is-large"></i>
+        <div className="nes-text is-success">You won the game!</div>
+        <div className="nes-text is-disabled">
+          Congratulations, you saved all {LEVELS.length} planets.
+        </div>
+        {Stats}
+        <button type="button" className="nes-btn" onClick={onRestart}>
+          Main menu
+        </button>
+      </>
+    );
+  }
 
   if (data.reason === "timeUp") {
     return (

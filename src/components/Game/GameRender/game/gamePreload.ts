@@ -1,9 +1,9 @@
-import explosionImage from '@/assets/images/explosion.gif';
-import heartImage from '@/assets/images/heart.png';
-import boomLightSound from '@/assets/sounds/boom-light.wav';
-import boomSound from '@/assets/sounds/boom.wav';
-import shootSound from '@/assets/sounds/shoot.wav';
-import { ENEMIES } from '@/constants/common';
+import explosionImage from "@/assets/images/explosion.gif";
+import heartImage from "@/assets/images/heart.png";
+import boomSound from "@/assets/sounds/boom.wav";
+import boomLightSound from "@/assets/sounds/boom-light.wav";
+import shootSound from "@/assets/sounds/shoot.wav";
+import { ENEMIES } from "@/constants/common";
 import {
   SOUND_EXPLOSION,
   SOUND_LASER,
@@ -12,8 +12,8 @@ import {
   TEXTURE_HEART,
   TEXTURE_PLANET,
   TEXTURE_PLAYER,
-} from './constants';
-import type { GameConfig } from './types';
+} from "./constants";
+import type { GameConfig } from "./types";
 
 export const getPreload = ({ planetImage, playerImage }: GameConfig) =>
   function (this: Phaser.Scene) {

@@ -1,5 +1,5 @@
-import successSound from "@/assets/sounds/success.wav";
 import { useEffect } from "react";
+import successSound from "@/assets/sounds/success.wav";
 import type { GameOver } from "../utils/game";
 
 interface Props {

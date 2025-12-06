@@ -1,5 +1,5 @@
 export interface GameOver {
-  reason: 'planetDestroyed' | 'playerHit' | 'timeUp';
+  reason: "planetDestroyed" | "playerHit" | "timeUp";
   stats?: {
     planetHealth: number;
     hits: number;

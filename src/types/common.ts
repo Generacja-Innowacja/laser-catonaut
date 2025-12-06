@@ -8,3 +8,12 @@ export interface Enemy {
   id: string;
   imageSrc: string;
 }
+
+export interface Level {
+  id: string;
+  name: string;
+  duration: number;
+  difficulty: number;
+  planetSrc: string;
+  soundSrc: string;
+}

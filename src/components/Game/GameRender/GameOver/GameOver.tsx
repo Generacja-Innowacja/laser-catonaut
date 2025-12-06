@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import gameOverSound from "@/assets/sounds/game-over.wav";
 import successSound from "@/assets/sounds/success.wav";
+import { useEffect } from "react";
 import type { GameOver } from "../utils/game";
 
 interface Props {
@@ -9,15 +10,13 @@ interface Props {
 }
 
 const successAudio = new Audio(successSound);
-const gaveOverAudio = new Audio(successSound);
+const gaveOverAudio = new Audio(gameOverSound);
 
 const GameOver = ({
   data,
   onRestart,
   onNextLevel,
 }: Props): React.ReactElement => {
-  console.log({ successSound });
-
   useEffect(() => {
     console.log("should play sound");
 
@@ -56,9 +55,14 @@ const GameOver = ({
   return (
     <>
       <div className="nes-text is-dark is-error">Game over</div>
-      <div className="nes-text is-disabled">
-        Unfortunately, the planet has been destroyed.
-      </div>
+      {data.reason === "planetDestroyed" && (
+        <div className="nes-text is-disabled">
+          Unfortunately, the planet has been destroyed.
+        </div>
+      )}
+      {data.reason === "playerHit" && (
+        <div className="nes-text is-disabled">Unfortunately, the cat died.</div>
+      )}
       {Stats}
       <button type="button" className="nes-btn" onClick={onRestart}>
         Restart

@@ -1,27 +1,40 @@
+import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import * as Phaser from "phaser";
 import { useEffect, useRef, useState } from "react";
-import earthPlanet from "@/assets/images/planets/earth.png";
-import { DEFAULT_PLAYER, PLAYERS } from "@/constants/common";
 import GameOverView from "./GameOver/GameOver";
 import { type GameOver as GameOverType, getConfig } from "./utils/game";
 
 interface Props {
   playerId: string;
+  levelIndex: number;
   onRestart(): void;
 }
 
-const GameRender = ({ playerId, onRestart }: Props): React.ReactElement => {
+const GameRender = ({
+  playerId,
+  levelIndex,
+  onRestart,
+}: Props): React.ReactElement => {
   const game = useRef<Phaser.Game | undefined>(undefined);
+  const level = LEVELS[levelIndex];
+  const levelAudio = useRef(new Audio(level.soundSrc));
   const [gameOver, setGameOver] = useState<GameOverType>();
+
+  const handleGameOver = (data: GameOverType) => {
+    setGameOver(data);
+    levelAudio.current.pause();
+    game!.current!.destroy(true);
+  };
 
   const startGame = () => {
     const currentPlayer =
       PLAYERS.find((player) => player.id === playerId) || DEFAULT_PLAYER;
 
     const gameConfig = getConfig({
-      planetImage: earthPlanet,
+      planetImage: level.planetSrc,
+      duration: level.duration,
       playerImage: currentPlayer.imageSrc,
-      onGameOver: setGameOver,
+      onGameOver: handleGameOver,
     });
 
     const gameContent = document.getElementById("game-content");
@@ -35,8 +48,12 @@ const GameRender = ({ playerId, onRestart }: Props): React.ReactElement => {
   };
 
   useEffect(() => {
+    levelAudio.current = new Audio(level.soundSrc);
+    levelAudio.current.play();
     startGame();
-  }, []);
+
+    return () => levelAudio.current.pause();
+  }, [level]);
 
   return (
     <div className="relative border-4 border-white w-full h-full backdrop-blur-xs">

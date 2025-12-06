@@ -1,12 +1,12 @@
-import { SHOT_COOLDOWN, SOUND_LASER } from '../../constants';
-import type { DEFAULT_DATA } from '../../gameData';
-import { updateHud } from '../hud/updateHud';
+import { SHOT_COOLDOWN, SOUND_LASER } from "../../constants";
+import type { DEFAULT_DATA } from "../../gameData";
+import { updateHud } from "../hud/updateHud";
 
 export function shootLaser(
   data: typeof DEFAULT_DATA,
   scene: Phaser.Scene,
   time: number,
-  target?: { x: number; y: number }
+  target?: { x: number; y: number },
 ) {
   if (!data.player) return;
   if (data.isGameOver) return;
@@ -22,13 +22,13 @@ export function shootLaser(
     // LPM – kierunek od kota do klikniętego punktu
     dir = new Phaser.Math.Vector2(
       target.x - data.player.x,
-      target.y - data.player.y
+      target.y - data.player.y,
     );
   } else {
     // SPACE – kierunek od planety do kota, jak dotychczas
     dir = new Phaser.Math.Vector2(
       data.player.x - data.planet.x,
-      data.player.y - data.planet.y
+      data.player.y - data.planet.y,
     );
   }
 
@@ -40,7 +40,7 @@ export function shootLaser(
     data.player.y,
     64,
     4,
-    0x66_ff_ff
+    0x66_ff_ff,
   );
   laserSprite.setOrigin(0, 0);
   laserSprite.rotation = Phaser.Math.Angle.Between(0, 0, dir.x, dir.y);
@@ -64,6 +64,6 @@ export function shootLaser(
     scaleY: 0.96,
     duration: 80,
     yoyo: true,
-    ease: 'Quad.easeOut',
+    ease: "Quad.easeOut",
   });
 }

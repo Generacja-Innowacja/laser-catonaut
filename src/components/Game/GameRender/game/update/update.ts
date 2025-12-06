@@ -1,14 +1,14 @@
-import { ENEMY_FADE_DURATION, ENEMY_FADE_FAST_DURATION } from '../constants';
-import type { DEFAULT_DATA } from '../gameData';
-import type { GameConfig } from '../types';
-import { fadeOutEnemy } from '../utils/enemy/fadeOutEnemy';
-import { spawnEnemy } from '../utils/enemy/spawnEnemy';
-import { layoutHearts } from '../utils/hud/layoutHearts';
-import { updateHearts } from '../utils/hud/updateHearts';
-import { updateHud } from '../utils/hud/updateHud';
-import { shootLaser } from '../utils/player/shootLaser';
-import { spawnExplosion } from '../utils/world/spawnExplosion';
-import { triggerGameOver } from '../utils/world/triggetGameOver';
+import { ENEMY_FADE_DURATION, ENEMY_FADE_FAST_DURATION } from "../constants";
+import type { DEFAULT_DATA } from "../gameData";
+import type { GameConfig } from "../types";
+import { fadeOutEnemy } from "../utils/enemy/fadeOutEnemy";
+import { spawnEnemy } from "../utils/enemy/spawnEnemy";
+import { layoutHearts } from "../utils/hud/layoutHearts";
+import { updateHearts } from "../utils/hud/updateHearts";
+import { updateHud } from "../utils/hud/updateHud";
+import { shootLaser } from "../utils/player/shootLaser";
+import { spawnExplosion } from "../utils/world/spawnExplosion";
+import { triggerGameOver } from "../utils/world/triggetGameOver";
 
 export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
   return function (this: Phaser.Scene, _time: number, delta: number) {
@@ -22,7 +22,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
     const now = this.time.now;
     data.timeLeftMs = Math.max(
       0,
-      data.roundDuration - (now - data.roundStartTime)
+      data.roundDuration - (now - data.roundStartTime),
     );
     updateHud(data);
 
@@ -48,7 +48,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
     // 2) Gravity towards planet center (keeps the cat “orbiting”)
     const toPlanet = new Phaser.Math.Vector2(
       data.planet.x - data.player.x,
-      data.planet.y - data.player.y
+      data.planet.y - data.player.y,
     );
 
     const distanceToPlanet = toPlanet.length();
@@ -64,7 +64,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
     const minDistance = data.planetRadius + data.playerRadius * 3;
     const fromPlanet = new Phaser.Math.Vector2(
       data.player.x - data.planet.x,
-      data.player.y - data.planet.y
+      data.player.y - data.planet.y,
     );
     const newDistance = fromPlanet.length();
 
@@ -101,7 +101,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
         enemy.sprite.x,
         enemy.sprite.y,
         data.player.x,
-        data.player.y
+        data.player.y,
       );
       const playerHitRadius =
         enemy.sprite.displayWidth / 2 + data.playerRadius * 0.6;
@@ -109,7 +109,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
       if (distToPlayer < playerHitRadius) {
         this.cameras.main.shake(250, 0.02);
         fadeOutEnemy(data, this, enemy, i, ENEMY_FADE_FAST_DURATION);
-        triggerGameOver(data, this, 'playerHit');
+        triggerGameOver(data, this, "playerHit");
         break;
       }
 
@@ -118,7 +118,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
         enemy.sprite.x,
         enemy.sprite.y,
         data.planet.x,
-        data.planet.y
+        data.planet.y,
       );
 
       if (distToPlanet < data.planetRadius) {
@@ -127,13 +127,13 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
         updateHearts(data);
 
         this.cameras.main.shake(200, 0.01);
-        spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, 'hard');
+        spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, "hard");
 
         // szybki fade-out przy uderzeniu w planetę
         fadeOutEnemy(data, this, enemy, i, ENEMY_FADE_FAST_DURATION);
 
         if (data.planetHealth <= 0) {
-          triggerGameOver(data, this, 'planetDestroyed');
+          triggerGameOver(data, this, "planetDestroyed");
         }
       }
     }
@@ -149,7 +149,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
         laser.sprite.x,
         laser.sprite.y,
         data.planet.x,
-        data.planet.y
+        data.planet.y,
       );
       if (distToPlanetForLaser < data.planetRadius) {
         laser.sprite.destroy();
@@ -182,7 +182,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
           enemy.sprite.x,
           enemy.sprite.y,
           laser.sprite.x,
-          laser.sprite.y
+          laser.sprite.y,
         );
 
         const hitRadius =
@@ -193,7 +193,7 @@ export function getUpdate(_config: GameConfig, data: typeof DEFAULT_DATA) {
           data.hits += 1;
           updateHud(data);
 
-          spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, 'light');
+          spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, "light");
           fadeOutEnemy(data, this, enemy, e, ENEMY_FADE_DURATION);
 
           // Laser znika natychmiast

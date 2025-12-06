@@ -1,6 +1,6 @@
-import { BASE_ENEMY_SPAWN_INTERVAL, BASE_ENEMY_SPEED } from '../constants';
-import type { DEFAULT_DATA } from '../gameData';
-import type { GameConfig } from '../types';
+import { BASE_ENEMY_SPAWN_INTERVAL, BASE_ENEMY_SPEED } from "../constants";
+import type { DEFAULT_DATA } from "../gameData";
+import type { GameConfig } from "../types";
 
 export function resetData(data: typeof DEFAULT_DATA, config: GameConfig) {
   data.planetHealth = config.hearts;

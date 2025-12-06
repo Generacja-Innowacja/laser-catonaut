@@ -1,5 +1,5 @@
-import soundLobby from "@/assets/sounds/lobby.mp3";
 import { useEffect, useRef, useState } from "react";
+import soundLobby from "@/assets/sounds/lobby.mp3";
 import GameRender from "./GameRender/GameRender";
 import PlayerSelector from "./PlayerSelector/PlayerSelector";
 

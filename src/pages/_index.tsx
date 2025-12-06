@@ -1,20 +1,9 @@
-import { useNavigate } from "react-router";
-import Button from "../components/shared/Button/Button";
-import { addTwoNumbers } from "../utils/number/addTwoNumbers";
-
 const Index = () => {
-  const navigate = useNavigate();
-  const sum = addTwoNumbers(2, 2);
-
-  const handleClick = () => {
-    navigate("/another-page");
-  };
-
   return (
-    <>
-      <div>2 + 2 = {sum}</div>
-      <Button onClick={handleClick}>Go to another page</Button>
-    </>
+    <div className="nes-container is-dark with-title h-[512px] w-[512px]">
+      <p className="title">laser-cat-game</p>
+      <p>game init content</p>
+    </div>
   );
 };
 

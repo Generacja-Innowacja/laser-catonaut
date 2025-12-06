@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+html, body, pre, code, kbd, samp {
+    font-family: "Press Start 2P";
+}
+
+@theme {
+  --color-ink-black:   #000000;
+  --color-urban-stone: #5f574f;
+  --color-dusky-lilac: #83769c;
+  --color-soft-silver: #c2c3c7;
+  --color-pure-white:  #ffffff;
+
+  --color-lime-punch:  #8dd836;
+  --color-jungle-green:#008751;
+  --color-deep-slate:  #293941;
+  --color-indigo-wave: #6b76d3;
+  --color-sky-cyan:    #35cfe4;
+
+  --color-sunny-gold:  #edd446;
+  --color-spiced-amber:#e48e2a;
+  --color-signal-red:  #cc3636;
+  --color-oxblood:     #761f28;
+  --color-clay-brick:  #a75b43;
+
+  --color-candy-pink:  #e97fc2;
+  --color-peach-cream: #ffccaa;
+  --color-void-night:  #26232a;
+  --color-stars-night: #0B1C31;
+}

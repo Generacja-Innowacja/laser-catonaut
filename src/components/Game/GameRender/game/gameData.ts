@@ -3,8 +3,8 @@ import {
   BASE_ENEMY_SPEED,
   BASE_PLANET_HEALTH,
   BASE_ROUND_DURATION,
-} from './constants';
-import type { Enemy, GameConfig, Laser } from './types';
+} from "./constants";
+import type { Enemy, GameConfig, Laser } from "./types";
 
 export const DEFAULT_DATA = {
   enemies: [] as Enemy[],
@@ -41,5 +41,5 @@ export const DEFAULT_DATA = {
   hearts: [] as Phaser.GameObjects.Image[],
 
   isGameOver: false,
-  onGameOverCallback: undefined as GameConfig['onGameOver'] | undefined,
+  onGameOverCallback: undefined as GameConfig["onGameOver"] | undefined,
 };

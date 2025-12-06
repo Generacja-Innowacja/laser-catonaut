@@ -1,4 +1,4 @@
-import * as Phaser from 'phaser';
+import * as Phaser from "phaser";
 import {
   BASE_ENEMY_SPAWN_INTERVAL,
   BASE_ENEMY_SPEED,
@@ -13,11 +13,11 @@ import {
   TEXTURE_HEART,
   TEXTURE_PLANET,
   TEXTURE_PLAYER,
-} from './constants';
-import { DEFAULT_DATA } from './gameData';
-import { getPreload } from './gamePreload';
-import type { Enemy, GameConfig } from './types';
-import { getRandomEnemy } from './utils/getRandomEnemy';
+} from "./constants";
+import { DEFAULT_DATA } from "./gameData";
+import { getPreload } from "./gamePreload";
+import type { Enemy, GameConfig } from "./types";
+import { getRandomEnemy } from "./utils/getRandomEnemy";
 
 const data = {
   ...DEFAULT_DATA,
@@ -68,7 +68,7 @@ export const getCreate = (config: GameConfig) =>
     // Input – arrows + WASD + SPACE
     data.cursors = this.input.keyboard!.createCursorKeys();
     data.spaceKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE
+      Phaser.Input.Keyboard.KeyCodes.SPACE,
     );
 
     const wasd = this.input.keyboard!.addKeys({
@@ -76,7 +76,7 @@ export const getCreate = (config: GameConfig) =>
       A: Phaser.Input.Keyboard.KeyCodes.A,
       S: Phaser.Input.Keyboard.KeyCodes.S,
       D: Phaser.Input.Keyboard.KeyCodes.D,
-    }) as Record<'W' | 'A' | 'S' | 'D', Phaser.Input.Keyboard.Key>;
+    }) as Record<"W" | "A" | "S" | "D", Phaser.Input.Keyboard.Key>;
 
     data.keyW = wasd.W;
     data.keyA = wasd.A;
@@ -84,7 +84,7 @@ export const getCreate = (config: GameConfig) =>
     data.keyD = wasd.D;
 
     // Mouse – lewy przycisk strzela w punkt kliknięcia
-    this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+    this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
       if (pointer.leftButtonDown()) {
         shootLaser(this, this.time.now, {
           x: pointer.worldX,
@@ -94,10 +94,10 @@ export const getCreate = (config: GameConfig) =>
     });
 
     // HUD text
-    data.hudText = this.add.text(16, 16, '', {
-      fontFamily: 'monospace',
-      fontSize: '14px',
-      color: '#ffffff',
+    data.hudText = this.add.text(16, 16, "", {
+      fontFamily: "monospace",
+      fontSize: "14px",
+      color: "#ffffff",
     });
     data.hudText.setScrollFactor(0);
 
@@ -128,7 +128,7 @@ export const getCreate = (config: GameConfig) =>
         if (data.isGameOver) return;
         data.timeLeftMs = 0;
         updateHud();
-        triggerGameOver(this, 'timeUp');
+        triggerGameOver(this, "timeUp");
       },
     });
   };
@@ -151,14 +151,14 @@ function layoutHearts(width: number) {
 
 // kolor czasu: zielony -> czerwony
 function getTimeColor(): string {
-  if (data.roundDuration <= 0) return '#ff0000';
+  if (data.roundDuration <= 0) return "#ff0000";
   const t = Phaser.Math.Clamp(data.timeLeftMs / data.roundDuration, 0, 1); // 1 = full time (green), 0 = no time (red)
 
   const r = Math.round((1 - t) * 255); // rośnie do czerwieni
   const g = Math.round(t * 255); // maleje z zieleni
-  const rr = r.toString(16).padStart(2, '0');
-  const gg = g.toString(16).padStart(2, '0');
-  const bb = '00';
+  const rr = r.toString(16).padStart(2, "0");
+  const gg = g.toString(16).padStart(2, "0");
+  const bb = "00";
 
   return `#${rr}${gg}${bb}`;
 }
@@ -170,7 +170,7 @@ function updateHud() {
   const timeText = secondsLeft.toFixed(1);
 
   data.hudText.setText(
-    `Time: ${timeText}s  |  Hits: ${data.hits}   Misses: ${data.misses}   Planet HP: ${data.planetHealth}`
+    `Time: ${timeText}s  |  Hits: ${data.hits}   Misses: ${data.misses}   Planet HP: ${data.planetHealth}`,
   );
   data.hudText.setColor(getTimeColor());
 }
@@ -183,7 +183,7 @@ function updateHearts() {
 
 function triggerGameOver(
   scene: Phaser.Scene,
-  reason: 'planetDestroyed' | 'playerHit' | 'timeUp'
+  reason: "planetDestroyed" | "playerHit" | "timeUp",
 ) {
   if (data.isGameOver) return;
   data.isGameOver = true;
@@ -207,7 +207,7 @@ function fadeOutEnemy(
   scene: Phaser.Scene,
   enemy: Enemy,
   index: number,
-  duration: number
+  duration: number,
 ) {
   data.enemies.splice(index, 1);
   scene.tweens.add({
@@ -239,7 +239,7 @@ function spawnEnemy(scene: Phaser.Scene) {
   // kierunek i prędkość w stronę planety
   const dir = new Phaser.Math.Vector2(
     data.planet.x - spawnX,
-    data.planet.y - spawnY
+    data.planet.y - spawnY,
   ).normalize();
 
   const vx = dir.x * data.enemySpeed;
@@ -250,7 +250,7 @@ function spawnEnemy(scene: Phaser.Scene) {
     data.planet.x,
     data.planet.y,
     spawnX,
-    spawnY + sprite.height / 2
+    spawnY + sprite.height / 2,
   );
   sprite.rotation = angleToPlanet + ENEMY_ANGLE_OFFSET;
 
@@ -269,13 +269,13 @@ function spawnExplosion(
   scene: Phaser.Scene,
   x: number,
   y: number,
-  type: 'light' | 'hard'
+  type: "light" | "hard",
 ) {
   const explosion = scene.add.image(x, y, TEXTURE_EXPLOSION);
   explosion.setOrigin(0.5, 0.5);
   explosion.setScale(0.25);
 
-  scene.sound.play(type === 'light' ? SOUND_LIGHT_EXPLOSION : SOUND_EXPLOSION, {
+  scene.sound.play(type === "light" ? SOUND_LIGHT_EXPLOSION : SOUND_EXPLOSION, {
     volume: 0.7,
   });
 
@@ -298,7 +298,7 @@ function spawnExplosion(
 function shootLaser(
   scene: Phaser.Scene,
   time: number,
-  target?: { x: number; y: number }
+  target?: { x: number; y: number },
 ) {
   if (!data.player) return;
   if (data.isGameOver) return;
@@ -314,13 +314,13 @@ function shootLaser(
     // LPM – kierunek od kota do klikniętego punktu
     dir = new Phaser.Math.Vector2(
       target.x - data.player.x,
-      target.y - data.player.y
+      target.y - data.player.y,
     );
   } else {
     // SPACE – kierunek od planety do kota, jak dotychczas
     dir = new Phaser.Math.Vector2(
       data.player.x - data.planet.x,
-      data.player.y - data.planet.y
+      data.player.y - data.planet.y,
     );
   }
 
@@ -332,7 +332,7 @@ function shootLaser(
     data.player.y,
     64,
     4,
-    0x66_ff_ff
+    0x66_ff_ff,
   );
   laserSprite.setOrigin(0, 0);
   laserSprite.rotation = Phaser.Math.Angle.Between(0, 0, dir.x, dir.y);
@@ -356,7 +356,7 @@ function shootLaser(
     scaleY: 0.96,
     duration: 80,
     yoyo: true,
-    ease: 'Quad.easeOut',
+    ease: "Quad.easeOut",
   });
 }
 
@@ -372,7 +372,7 @@ const getUpdate = (_config: GameConfig) =>
     const now = this.time.now;
     data.timeLeftMs = Math.max(
       0,
-      data.roundDuration - (now - data.roundStartTime)
+      data.roundDuration - (now - data.roundStartTime),
     );
     updateHud();
 
@@ -398,7 +398,7 @@ const getUpdate = (_config: GameConfig) =>
     // 2) Gravity towards planet center (keeps the cat “orbiting”)
     const toPlanet = new Phaser.Math.Vector2(
       data.planet.x - data.player.x,
-      data.planet.y - data.player.y
+      data.planet.y - data.player.y,
     );
 
     const distanceToPlanet = toPlanet.length();
@@ -414,7 +414,7 @@ const getUpdate = (_config: GameConfig) =>
     const minDistance = data.planetRadius + data.playerRadius * 3;
     const fromPlanet = new Phaser.Math.Vector2(
       data.player.x - data.planet.x,
-      data.player.y - data.planet.y
+      data.player.y - data.planet.y,
     );
     const newDistance = fromPlanet.length();
 
@@ -451,7 +451,7 @@ const getUpdate = (_config: GameConfig) =>
         enemy.sprite.x,
         enemy.sprite.y,
         data.player.x,
-        data.player.y
+        data.player.y,
       );
       const playerHitRadius =
         enemy.sprite.displayWidth / 2 + data.playerRadius * 0.6;
@@ -459,7 +459,7 @@ const getUpdate = (_config: GameConfig) =>
       if (distToPlayer < playerHitRadius) {
         this.cameras.main.shake(250, 0.02);
         fadeOutEnemy(this, enemy, i, ENEMY_FADE_FAST_DURATION);
-        triggerGameOver(this, 'playerHit');
+        triggerGameOver(this, "playerHit");
         break;
       }
 
@@ -468,7 +468,7 @@ const getUpdate = (_config: GameConfig) =>
         enemy.sprite.x,
         enemy.sprite.y,
         data.planet.x,
-        data.planet.y
+        data.planet.y,
       );
 
       if (distToPlanet < data.planetRadius) {
@@ -477,13 +477,13 @@ const getUpdate = (_config: GameConfig) =>
         updateHearts();
 
         this.cameras.main.shake(200, 0.01);
-        spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, 'hard');
+        spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, "hard");
 
         // szybki fade-out przy uderzeniu w planetę
         fadeOutEnemy(this, enemy, i, ENEMY_FADE_FAST_DURATION);
 
         if (data.planetHealth <= 0) {
-          triggerGameOver(this, 'planetDestroyed');
+          triggerGameOver(this, "planetDestroyed");
         }
       }
     }
@@ -499,7 +499,7 @@ const getUpdate = (_config: GameConfig) =>
         laser.sprite.x,
         laser.sprite.y,
         data.planet.x,
-        data.planet.y
+        data.planet.y,
       );
       if (distToPlanetForLaser < data.planetRadius) {
         laser.sprite.destroy();
@@ -532,7 +532,7 @@ const getUpdate = (_config: GameConfig) =>
           enemy.sprite.x,
           enemy.sprite.y,
           laser.sprite.x,
-          laser.sprite.y
+          laser.sprite.y,
         );
 
         const hitRadius =
@@ -543,7 +543,7 @@ const getUpdate = (_config: GameConfig) =>
           data.hits += 1;
           updateHud();
 
-          spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, 'light');
+          spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, "light");
           fadeOutEnemy(this, enemy, e, ENEMY_FADE_DURATION);
 
           // Laser znika natychmiast
@@ -560,9 +560,9 @@ const getUpdate = (_config: GameConfig) =>
   };
 
 export const getConfig = (
-  config: GameConfig
+  config: GameConfig,
 ): Phaser.Types.Core.GameConfig => ({
-  parent: 'game-content',
+  parent: "game-content",
   type: Phaser.CANVAS, // force Canvas renderer
   width: 792,
   height: 592,

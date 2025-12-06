@@ -9,8 +9,14 @@ import enemy3 from "@/assets/images/enemies/enemy-3.png";
 import enemy4 from "@/assets/images/enemies/enemy-4.png";
 
 import earthPlanet from "@/assets/images/planets/earth.png";
+import eresPlanet from "@/assets/images/planets/eres.png";
+import marsPlanet from "@/assets/images/planets/mars.png";
+import venusPlanet from "@/assets/images/planets/venus.png";
 
 import soundLevel1 from "@/assets/sounds/level-1.mp3";
+import soundLevel2 from "@/assets/sounds/level-2.mp3";
+import soundLevel3 from "@/assets/sounds/level-3.mp3";
+import soundLevel4 from "@/assets/sounds/level-4.mp3";
 
 import type { Enemy, Level, Player } from "@/types/common";
 
@@ -68,31 +74,31 @@ export const LEVELS: Level[] = [
     planetSrc: earthPlanet,
     soundSrc: soundLevel1,
   },
-  // {
-  //   id: 'level-2',
-  //   name: 'Level 2',
-  //   duration: 35_000,
-  //   difficulty: 1.5,
-  //   hearts: 3,
-  //   planetSrc: marsPlanet,
-  //   soundSrc: soundLevel2,
-  // },
-  // {
-  //   id: 'level-3',
-  //   name: 'Level 3',
-  //   duration: 45_000,
-  //   difficulty: 1.5,
-  //   hearts: 2,
-  //   planetSrc: venusPlanet,
-  //   soundSrc: soundLevel3,
-  // },
-  // {
-  //   id: 'level-4',
-  //   name: 'Level 4',
-  //   duration: 65_000,
-  //   difficulty: 2,
-  //   hearts: 1,
-  //   planetSrc: eresPlanet,
-  //   soundSrc: soundLevel4,
-  // },
+  {
+    id: "level-2",
+    name: "Level 2",
+    duration: 35_000,
+    difficulty: 1.5,
+    hearts: 3,
+    planetSrc: marsPlanet,
+    soundSrc: soundLevel2,
+  },
+  {
+    id: "level-3",
+    name: "Level 3",
+    duration: 45_000,
+    difficulty: 1.5,
+    hearts: 2,
+    planetSrc: venusPlanet,
+    soundSrc: soundLevel3,
+  },
+  {
+    id: "level-4",
+    name: "Level 4",
+    duration: 65_000,
+    difficulty: 2,
+    hearts: 1,
+    planetSrc: eresPlanet,
+    soundSrc: soundLevel4,
+  },
 ];

@@ -1,8 +1,9 @@
+import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import * as Phaser from "phaser";
 import { useEffect, useRef, useState } from "react";
-import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import GameOverView from "./GameOver/GameOver";
-import { type GameOver as GameOverType, getConfig } from "./utils/game";
+import { getConfig } from "./utils/game";
+import type { GameOver } from "./utils/types";
 
 interface Props {
   playerId: string;
@@ -18,12 +19,12 @@ const GameRender = ({
   onNextLevel,
 }: Props): React.ReactElement => {
   const game = useRef<Phaser.Game | undefined>(undefined);
-  const [gameOver, setGameOver] = useState<GameOverType>();
+  const [gameOver, setGameOver] = useState<GameOver>();
   const level = LEVELS[levelIndex];
   const levelAudio = useRef(new Audio(level.soundSrc));
   const isLastLevel = levelIndex === LEVELS.length - 1;
 
-  const handleGameOver = (data: GameOverType) => {
+  const handleGameOver = (data: GameOver) => {
     setGameOver(data);
     levelAudio.current.pause();
     game!.current!.destroy(true);

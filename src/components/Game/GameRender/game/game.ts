@@ -1,4 +1,4 @@
-import * as Phaser from 'phaser';
+import * as Phaser from "phaser";
 import {
   ENEMY_ANGLE_OFFSET,
   ENEMY_FADE_DURATION,
@@ -6,17 +6,17 @@ import {
   SOUND_EXPLOSION,
   SOUND_LIGHT_EXPLOSION,
   TEXTURE_EXPLOSION,
-} from './constants';
-import { getCreate } from './create/create';
-import { DEFAULT_DATA } from './gameData';
-import { getPreload } from './preload/preload';
-import type { Enemy, GameConfig } from './types';
-import { getRandomEnemy } from './utils/getRandomEnemy';
-import { layoutHearts } from './utils/layoutHearts';
-import { shootLaser } from './utils/shootLaser';
-import { triggerGameOver } from './utils/triggetGameOver';
-import { updateHearts } from './utils/updateHearts';
-import { updateHud } from './utils/updateHud';
+} from "./constants";
+import { getCreate } from "./create/create";
+import { DEFAULT_DATA } from "./gameData";
+import { getPreload } from "./preload/preload";
+import type { Enemy, GameConfig } from "./types";
+import { getRandomEnemy } from "./utils/getRandomEnemy";
+import { layoutHearts } from "./utils/layoutHearts";
+import { shootLaser } from "./utils/shootLaser";
+import { triggerGameOver } from "./utils/triggetGameOver";
+import { updateHearts } from "./utils/updateHearts";
+import { updateHud } from "./utils/updateHud";
 
 const data = {
   ...DEFAULT_DATA,
@@ -26,7 +26,7 @@ function fadeOutEnemy(
   scene: Phaser.Scene,
   enemy: Enemy,
   index: number,
-  duration: number
+  duration: number,
 ) {
   data.enemies.splice(index, 1);
   scene.tweens.add({
@@ -58,7 +58,7 @@ function spawnEnemy(scene: Phaser.Scene) {
   // kierunek i prędkość w stronę planety
   const dir = new Phaser.Math.Vector2(
     data.planet.x - spawnX,
-    data.planet.y - spawnY
+    data.planet.y - spawnY,
   ).normalize();
 
   const vx = dir.x * data.enemySpeed;
@@ -69,7 +69,7 @@ function spawnEnemy(scene: Phaser.Scene) {
     data.planet.x,
     data.planet.y,
     spawnX,
-    spawnY + sprite.height / 2
+    spawnY + sprite.height / 2,
   );
   sprite.rotation = angleToPlanet + ENEMY_ANGLE_OFFSET;
 
@@ -88,13 +88,13 @@ function spawnExplosion(
   scene: Phaser.Scene,
   x: number,
   y: number,
-  type: 'light' | 'hard'
+  type: "light" | "hard",
 ) {
   const explosion = scene.add.image(x, y, TEXTURE_EXPLOSION);
   explosion.setOrigin(0.5, 0.5);
   explosion.setScale(0.25);
 
-  scene.sound.play(type === 'light' ? SOUND_LIGHT_EXPLOSION : SOUND_EXPLOSION, {
+  scene.sound.play(type === "light" ? SOUND_LIGHT_EXPLOSION : SOUND_EXPLOSION, {
     volume: 0.7,
   });
 
@@ -121,7 +121,7 @@ const getUpdate = (_config: GameConfig) =>
     const now = this.time.now;
     data.timeLeftMs = Math.max(
       0,
-      data.roundDuration - (now - data.roundStartTime)
+      data.roundDuration - (now - data.roundStartTime),
     );
     updateHud(data);
 
@@ -147,7 +147,7 @@ const getUpdate = (_config: GameConfig) =>
     // 2) Gravity towards planet center (keeps the cat “orbiting”)
     const toPlanet = new Phaser.Math.Vector2(
       data.planet.x - data.player.x,
-      data.planet.y - data.player.y
+      data.planet.y - data.player.y,
     );
 
     const distanceToPlanet = toPlanet.length();
@@ -163,7 +163,7 @@ const getUpdate = (_config: GameConfig) =>
     const minDistance = data.planetRadius + data.playerRadius * 3;
     const fromPlanet = new Phaser.Math.Vector2(
       data.player.x - data.planet.x,
-      data.player.y - data.planet.y
+      data.player.y - data.planet.y,
     );
     const newDistance = fromPlanet.length();
 
@@ -200,7 +200,7 @@ const getUpdate = (_config: GameConfig) =>
         enemy.sprite.x,
         enemy.sprite.y,
         data.player.x,
-        data.player.y
+        data.player.y,
       );
       const playerHitRadius =
         enemy.sprite.displayWidth / 2 + data.playerRadius * 0.6;
@@ -208,7 +208,7 @@ const getUpdate = (_config: GameConfig) =>
       if (distToPlayer < playerHitRadius) {
         this.cameras.main.shake(250, 0.02);
         fadeOutEnemy(this, enemy, i, ENEMY_FADE_FAST_DURATION);
-        triggerGameOver(data, this, 'playerHit');
+        triggerGameOver(data, this, "playerHit");
         break;
       }
 
@@ -217,7 +217,7 @@ const getUpdate = (_config: GameConfig) =>
         enemy.sprite.x,
         enemy.sprite.y,
         data.planet.x,
-        data.planet.y
+        data.planet.y,
       );
 
       if (distToPlanet < data.planetRadius) {
@@ -226,13 +226,13 @@ const getUpdate = (_config: GameConfig) =>
         updateHearts(data);
 
         this.cameras.main.shake(200, 0.01);
-        spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, 'hard');
+        spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, "hard");
 
         // szybki fade-out przy uderzeniu w planetę
         fadeOutEnemy(this, enemy, i, ENEMY_FADE_FAST_DURATION);
 
         if (data.planetHealth <= 0) {
-          triggerGameOver(data, this, 'planetDestroyed');
+          triggerGameOver(data, this, "planetDestroyed");
         }
       }
     }
@@ -248,7 +248,7 @@ const getUpdate = (_config: GameConfig) =>
         laser.sprite.x,
         laser.sprite.y,
         data.planet.x,
-        data.planet.y
+        data.planet.y,
       );
       if (distToPlanetForLaser < data.planetRadius) {
         laser.sprite.destroy();
@@ -281,7 +281,7 @@ const getUpdate = (_config: GameConfig) =>
           enemy.sprite.x,
           enemy.sprite.y,
           laser.sprite.x,
-          laser.sprite.y
+          laser.sprite.y,
         );
 
         const hitRadius =
@@ -292,7 +292,7 @@ const getUpdate = (_config: GameConfig) =>
           data.hits += 1;
           updateHud(data);
 
-          spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, 'light');
+          spawnExplosion(this, enemy.sprite.x, enemy.sprite.y, "light");
           fadeOutEnemy(this, enemy, e, ENEMY_FADE_DURATION);
 
           // Laser znika natychmiast
@@ -309,9 +309,9 @@ const getUpdate = (_config: GameConfig) =>
   };
 
 export const getConfig = (
-  config: GameConfig
+  config: GameConfig,
 ): Phaser.Types.Core.GameConfig => ({
-  parent: 'game-content',
+  parent: "game-content",
   type: Phaser.CANVAS, // force Canvas renderer
   width: 792,
   height: 592,

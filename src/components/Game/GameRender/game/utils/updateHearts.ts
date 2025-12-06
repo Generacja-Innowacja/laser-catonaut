@@ -1,4 +1,4 @@
-import type { DEFAULT_DATA } from '../gameData';
+import type { DEFAULT_DATA } from "../gameData";
 
 export function updateHearts(data: typeof DEFAULT_DATA) {
   for (let i = 0; i < data.hearts.length; i++) {

@@ -1,4 +1,4 @@
-import { DEFAULT_DATA } from './../gameData';
+import { DEFAULT_DATA } from "./../gameData";
 export function layoutHearts(data: typeof DEFAULT_DATA, width: number) {
   if (data.hearts.length === 0) return;
 

@@ -2,6 +2,8 @@ export interface Player {
   id: string;
   name: string;
   imageSrc: string;
+  thumbnailSrc: string;
+  description: string;
 }
 
 export interface Enemy {

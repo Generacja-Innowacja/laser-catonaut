@@ -1,8 +1,6 @@
 import { Outlet, Scripts } from "react-router";
 
-import "@gi/athena/athena.css";
 import StarsBackground from "./components/Game/StarsBackground/StarsBackground";
-import "./index.css";
 
 export default function App() {
   return (

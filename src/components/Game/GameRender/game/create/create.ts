@@ -1,12 +1,12 @@
-import { TEXTURE_HEART, TEXTURE_PLANET, TEXTURE_PLAYER } from "../constants";
-import type { DEFAULT_DATA } from "../gameData";
-import type { GameConfig } from "../types";
-import { layoutHearts } from "../utils/hud/layoutHearts";
-import { updateHearts } from "../utils/hud/updateHearts";
-import { updateHud } from "../utils/hud/updateHud";
-import { shootLaser } from "../utils/player/shootLaser";
-import { triggerGameOver } from "../utils/world/triggetGameOver";
-import { resetData } from "./resetData";
+import { TEXTURE_HEART, TEXTURE_PLANET, TEXTURE_PLAYER } from '../constants';
+import type { DEFAULT_DATA } from '../gameData';
+import type { GameConfig } from '../types';
+import { layoutHearts } from '../utils/hud/layoutHearts';
+import { updateHearts } from '../utils/hud/updateHearts';
+import { updateHud } from '../utils/hud/updateHud';
+import { shootLaser } from '../utils/player/shootLaser';
+import { triggerGameOver } from '../utils/world/triggetGameOver';
+import { resetData } from './resetData';
 
 export function getCreate(config: GameConfig, data: typeof DEFAULT_DATA) {
   return function (this: Phaser.Scene) {
@@ -18,9 +18,10 @@ export function getCreate(config: GameConfig, data: typeof DEFAULT_DATA) {
     data.onGameOverCallback = config.onGameOver;
     data.isGameOver = false;
 
-    // Center planet
+    // Center planetsd
     data.planet = this.add.image(width / 2, height / 2, TEXTURE_PLANET);
     data.planet.setOrigin(0.5, 0.5);
+    data.planet.setScale(config.planetSize);
     this.textures
       .get(TEXTURE_PLANET)
       .setFilter(Phaser.Textures.FilterMode.NEAREST);
@@ -40,7 +41,7 @@ export function getCreate(config: GameConfig, data: typeof DEFAULT_DATA) {
     // Input – arrows + WASD + SPACE
     data.cursors = this.input.keyboard!.createCursorKeys();
     data.spaceKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE,
+      Phaser.Input.Keyboard.KeyCodes.SPACE
     );
 
     const wasd = this.input.keyboard!.addKeys({
@@ -48,7 +49,7 @@ export function getCreate(config: GameConfig, data: typeof DEFAULT_DATA) {
       A: Phaser.Input.Keyboard.KeyCodes.A,
       S: Phaser.Input.Keyboard.KeyCodes.S,
       D: Phaser.Input.Keyboard.KeyCodes.D,
-    }) as Record<"W" | "A" | "S" | "D", Phaser.Input.Keyboard.Key>;
+    }) as Record<'W' | 'A' | 'S' | 'D', Phaser.Input.Keyboard.Key>;
 
     data.keyW = wasd.W;
     data.keyA = wasd.A;
@@ -56,7 +57,7 @@ export function getCreate(config: GameConfig, data: typeof DEFAULT_DATA) {
     data.keyD = wasd.D;
 
     // Mouse – lewy przycisk strzela w punkt kliknięcia
-    this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
+    this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       if (pointer.leftButtonDown()) {
         shootLaser(data, this, this.time.now, {
           x: pointer.worldX,
@@ -66,20 +67,20 @@ export function getCreate(config: GameConfig, data: typeof DEFAULT_DATA) {
     });
 
     // HUD text
-    data.hudText = this.add.text(16, 16, "", {
-      fontFamily: "monospace",
-      fontSize: "14px",
-      color: "#ffffff",
+    data.hudText = this.add.text(16, 16, '', {
+      fontFamily: 'monospace',
+      fontSize: '14px',
+      color: '#ffffff',
     });
     data.hudText.setScrollFactor(0);
 
-    // Hearts HUD (na środku)
+    // Hearts HUD
     for (const heart of data.hearts) {
       heart.destroy();
     }
     data.hearts = [];
 
-    const heartsCount = data.planetHealth; // initial HP
+    const heartsCount = data.planetHealth;
     const baseY = height / 2;
 
     for (let i = 0; i < heartsCount; i++) {
@@ -100,7 +101,7 @@ export function getCreate(config: GameConfig, data: typeof DEFAULT_DATA) {
         if (data.isGameOver) return;
         data.timeLeftMs = 0;
         updateHud(data);
-        triggerGameOver(data, this, "timeUp");
+        triggerGameOver(data, this, 'timeUp');
       },
     });
   };

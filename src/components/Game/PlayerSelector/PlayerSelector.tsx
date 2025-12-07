@@ -11,7 +11,7 @@ const PlayerSelector = ({ onPlayerSelect }: Props) => {
   return (
     <div className="nes-container is-dark with-title w-full h-full">
       <p className="title">Choose your player</p>
-      <div className="flex flex-col h-full">
+      <div className="grid grid-cols-2 gap-4 h-full pb-4">
         {PLAYERS.map(({ id, name, imageSrc }) => (
           <button
             key={id}
@@ -25,7 +25,7 @@ const PlayerSelector = ({ onPlayerSelect }: Props) => {
             <div className="flex gap-8 items-center justify-center">
               <img
                 src={imageSrc}
-                className="h-8 w-8"
+                className="h-12 w-12"
                 style={{ imageRendering: "pixelated" }}
               />
               {name}

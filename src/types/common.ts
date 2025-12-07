@@ -16,5 +16,6 @@ export interface Level {
   hearts: number;
   difficulty: number;
   planetSrc: string;
+  planetSize: number;
   soundSrc: string;
 }

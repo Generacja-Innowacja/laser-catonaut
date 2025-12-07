@@ -1,5 +1,5 @@
 export interface GameOver {
-  reason: "planetDestroyed" | "playerHit" | "timeUp";
+  reason: 'planetDestroyed' | 'playerHit' | 'timeUp';
   stats?: {
     planetHealth: number;
     hits: number;
@@ -14,6 +14,7 @@ export interface GameConfig {
   duration: number;
   hearts: number;
   difficulty: number;
+  planetSize: number;
   onGameOver?: (data: GameOver) => void;
 }
 

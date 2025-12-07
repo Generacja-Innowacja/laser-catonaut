@@ -1,6 +1,6 @@
+import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import * as Phaser from "phaser";
 import { useEffect, useRef, useState } from "react";
-import { DEFAULT_PLAYER, LEVELS, PLAYERS } from "@/constants/common";
 import GameOverView from "./GameOver/GameOver";
 import { getConfig } from "./game/game";
 import type { GameOver } from "./game/types";
@@ -44,6 +44,7 @@ const GameRender = ({
       duration: level.duration,
       hearts: level.hearts,
       difficulty: level.difficulty,
+      planetSize: level.planetSize,
       playerImage: currentPlayer.imageSrc,
       onGameOver: handleGameOver,
     });

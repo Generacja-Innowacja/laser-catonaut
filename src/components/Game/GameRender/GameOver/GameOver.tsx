@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import gameOverSound from "@/assets/sounds/game-over.wav";
 import successSound from "@/assets/sounds/success.wav";
 import { LEVELS } from "@/constants/common";
+import { useEffect } from "react";
 import type { GameOver } from "../game/game";
 
 interface Props {
@@ -21,8 +21,6 @@ const GameOver = ({
   onNextLevel,
 }: Props): React.ReactElement => {
   useEffect(() => {
-    console.log("should play sound");
-
     if (data.reason === "timeUp") {
       successAudio.play();
       return;

@@ -6,7 +6,7 @@ export default function App() {
   return (
     <html lang="en">
       <head>
-        <title>Laser Cat</title>
+        <title>Laser Catonaut</title>
         <link
           href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css"
           rel="stylesheet"

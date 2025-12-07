@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import soundLobby from "@/assets/sounds/lobby.mp3";
 import { LEVELS } from "@/constants/common";
+import { useEffect, useRef, useState } from "react";
 import GameRender from "./GameRender/GameRender";
 import GameStart from "./GameStart/GameStart";
 import PlayerSelector from "./PlayerSelector/PlayerSelector";
@@ -57,7 +57,8 @@ const Game = (): React.ReactElement => {
         )}
       </div>
       <div className="title text-white">
-        Laser Catonaut{playerId ? ` | Level ${levelIndex + 1}` : ""}
+        Laser Catonaut
+        {playerId ? ` | Level ${levelIndex + 1}` : " | © Generacja Innowacja"}
       </div>
     </div>
   );
